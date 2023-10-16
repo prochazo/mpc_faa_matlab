@@ -9,7 +9,7 @@ if use_wamv_trajectory
     [~, yreftot] = WamvReferenceTrajectory(N, 0);
     yreftot = yreftot(1:end-N+1,:);
 else
-    yreftot = QuadrotorReferenceTrajectory(time)';
+    yreftot = referenceTrajectory(time)';
 end
 set(0,'defaulttextinterpreter','latex')
 set(0,'DefaultAxesFontSize',11)

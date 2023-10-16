@@ -4,7 +4,7 @@ LMPC Matlab
 This project includes MATLAB live scritp with the explanantion how to model UAV in 6DOF. This model is then discretized and linearized. Such a model is used as an internal model for Model Predictive Control in a form of reference tracking. 
 
 
-Matlab packages
+Matlab toolboxes
 ---------------
 - Control System Toolbox                                Version 10.10       (R2021a)
 - DSP System Toolbox                                    Version 9.12        (R2021a)
