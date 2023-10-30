@@ -6,8 +6,11 @@
 % Plot the closed-loop response.
 time = 0:Ts:Duration;
 if use_wamv_trajectory
-    [~, yreftot] = WamvReferenceTrajectory(N, 0);
-    yreftot = yreftot(1:end-N+1,:);
+    [~, yreftot] = WamvReferenceTrajectory(N, Ts, TrajStart);
+    yreftot = yreftot(1:simEnd-N+1,:);
+    time = time(1:size(yreftot, 1));
+    y = y(:, 1:size(yreftot, 1));
+    u = u(:, 1:size(yreftot, 1));
 else
     yreftot = referenceTrajectory(time)';
 end
@@ -24,6 +27,7 @@ nexttile
 hold on
 plot(time,y(1,:)','LineWidth', 2)
 plot(time,yreftot(:,1),'LineWidth', 2)
+plot([time(touchdownMoment), time(touchdownMoment)], [min(min(yreftot(:,1)), min(y(1,:))), max(max(yreftot(:,1)), max(y(1,:)))]);
 grid on
 xlabel('time (s)')
 ylabel('x (m)')
@@ -34,6 +38,8 @@ nexttile
 hold on
 plot(time,y(2,:)','LineWidth', 2)
 plot(time,yreftot(:,2),'LineWidth', 2)
+plot([time(touchdownMoment), time(touchdownMoment)], [min(min(yreftot(:,2)), min(y(2,:))), max(max(yreftot(:,2)), max(y(2,:)))]);
+
 grid on
 xlabel('time (s)', 'FontSize', 11)
 ylabel('y (m)', 'FontSize', 11)
@@ -44,6 +50,8 @@ nexttile
 hold on
 plot(time,y(3,:)','LineWidth', 2)
 plot(time,yreftot(:,3),'LineWidth', 2)
+plot([time(touchdownMoment), time(touchdownMoment)], [min(min(yreftot(:,3)), min(y(3,:))), max(max(yreftot(:,3)), max(y(3,:)))]);
+
 grid on
 xlabel('time (s)', 'FontSize', 11)
 ylabel('z (m)', 'FontSize', 11)
@@ -60,6 +68,8 @@ nexttile
 hold on
 plot(time,y(4,:)','LineWidth', 2)
 plot(time,yreftot(:,4),'LineWidth', 2)
+plot([time(touchdownMoment), time(touchdownMoment)], [min(min(yreftot(:,4)), min(y(4,:))), max(max(yreftot(:,4)), max(y(4,:)))]);
+
 grid on
 xlabel('time', 'FontSize', 11)
 ylabel('phi', 'FontSize', 11)
@@ -70,6 +80,8 @@ nexttile
 hold on
 plot(time,y(5,:)','LineWidth', 2)
 plot(time,yreftot(:,5),'LineWidth', 2)
+plot([time(touchdownMoment), time(touchdownMoment)], [min(min(yreftot(:,5)), min(y(5,:))), max(max(yreftot(:,5)), max(y(5,:)))]);
+
 grid on
 xlabel('time', 'FontSize', 11)
 ylabel('theta', 'FontSize', 11)
@@ -80,6 +92,7 @@ nexttile
 hold on
 plot(time,y(6,:)','LineWidth', 2)
 plot(time,yreftot(:,6),'LineWidth', 2)
+plot([time(touchdownMoment), time(touchdownMoment)], [min(min(yreftot(:,6)), min(y(6,:))), max(max(yreftot(:,6)), max(y(6,:)))]);
 grid on
 xlabel('time', 'FontSize', 11)
 ylabel('psi', 'FontSize', 11)
@@ -97,6 +110,8 @@ nexttile
 hold on
 plot(time,y(7,:)','LineWidth', 2)
 plot(time,yreftot(:,7),'LineWidth', 2)
+plot([time(touchdownMoment), time(touchdownMoment)], [min(min(yreftot(:,7)), min(y(7,:))), max(max(yreftot(:,7)), max(y(7,:)))]);
+
 grid on
 xlabel('time (s)','FontSize', 11)
 ylabel('$v_x$ (m/s)','FontSize', 11)
@@ -107,6 +122,7 @@ nexttile
 hold on
 plot(time,y(8,:)','LineWidth', 2)
 plot(time,yreftot(:,8),'LineWidth', 2)
+plot([time(touchdownMoment), time(touchdownMoment)], [min(min(yreftot(:,8)), min(y(8,:))), max(max(yreftot(:,8)), max(y(8,:)))]);
 grid on
 xlabel('time (s)','FontSize', 11)
 ylabel('$v_y$ (m/s)','FontSize', 11)
@@ -140,13 +156,50 @@ figure('Name','Vertical velocity')
 hold on
 plot(time,y(9,:)','LineWidth', 2)
 plot(time,yreftot(:,9),'LineWidth', 2)
+plot([time(touchdownMoment), time(touchdownMoment)], [min(min(yreftot(:,9)), min(y(9,:))), max(max(yreftot(:,9)), max(y(9,:)))]);
 grid on
 xlabel('time (s)','FontSize', 11)
 ylabel('$v_z$ (m/s)','FontSize', 11)
 legend('actual','reference','Location','southeast','Interpreter','latex','FontSize', 11)
 title("Quadrotor's vertical velocity")
 
-% sgtitle('Horizontal velocities','FontSize', 15) 
+% ----------------------
+figure('Name','Euler rates')
+
+tiledlayout(3,1);
+
+nexttile
+hold on
+plot(time,y(10,:)','LineWidth', 2)
+plot(time,yreftot(:,10),'LineWidth', 2)
+plot([time(touchdownMoment), time(touchdownMoment)], [min(min(yreftot(:,10)), min(y(10,:))), max(max(yreftot(:,10)), max(y(10,:)))]);
+grid on
+xlabel('time (s)','FontSize', 11)
+ylabel('$roll rate$ (rad/s)','FontSize', 11)
+legend('performed','reference','Location','southeast','Interpreter','latex', 'FontSize', 11)
+title("Quadrotor's linear velocity in x-axis",'FontSize', 11)
+
+nexttile
+hold on
+plot(time,y(11,:)','LineWidth', 2)
+plot(time,yreftot(:,11),'LineWidth', 2)
+plot([time(touchdownMoment), time(touchdownMoment)], [min(min(yreftot(:,11)), min(y(11,:))), max(max(yreftot(:,11)), max(y(11,:)))]);
+grid on
+xlabel('time (s)','FontSize', 11)
+ylabel('$pitch rate$ (rad/s)','FontSize', 11)
+legend('performed','reference','Location','southeast','Interpreter','latex','FontSize', 11)
+title("Quadrotor's linear velocity in y-axis",'FontSize', 11)
+
+nexttile
+hold on
+plot(time,y(12,:)','LineWidth', 2)
+plot(time,yreftot(:,12),'LineWidth', 2)
+plot([time(touchdownMoment), time(touchdownMoment)], [min(min(yreftot(:,12)), min(y(12,:))), max(max(yreftot(:,12)), max(y(12,:)))]);
+grid on
+xlabel('time (s)','FontSize', 11)
+ylabel('$yaw rate$ (rad/s)','FontSize', 11)
+legend('performed','reference','Location','southeast','Interpreter','latex','FontSize', 11)
+title("Quadrotor's linear velocity in z-axis",'FontSize', 11)
 %% Plot the manipulated variables.
 figure('Name','Control Inputs')
 
