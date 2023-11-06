@@ -6,7 +6,7 @@
 % Plot the closed-loop response.
 time = 0:Ts:Duration;
 if use_wamv_trajectory
-    [~, yreftot] = WamvReferenceTrajectory(N, Ts, TrajStart);
+    [~, yreftot] = WamvReferenceTrajectory(N, Ts, TrajStart, data_file_name);
     yreftot = yreftot(1:simEnd-N+1,:);
     time = time(1:size(yreftot, 1));
     y = y(:, 1:size(yreftot, 1));
@@ -31,7 +31,7 @@ plot([time(touchdownMoment), time(touchdownMoment)], [min(min(yreftot(:,1)), min
 grid on
 xlabel('time (s)', 'FontSize', 11)
 ylabel('x (m)', 'FontSize', 11)
-legend('response','reference','Location','southeast','Interpreter','latex', 'FontSize', 11)
+legend('performed','reference','Location','southeast','Interpreter','latex', 'FontSize', 11)
 % title('x position')
 xlim([0, time(touchdownMoment)+0.1])
 ylim([min(min(yreftot(:,1)), min(y(1,:))), max(max(yreftot(:,1)), max(y(1,:)))])
@@ -77,9 +77,9 @@ plot(time,yreftot(:,4),'LineWidth', 2)
 plot([time(touchdownMoment), time(touchdownMoment)], [min(min(yreftot(:,4)), min(y(4,:))), max(max(yreftot(:,4)), max(y(4,:)))]);
 grid on
 xlabel('time (s)', 'FontSize', 11)
-ylabel('angle (rad)', 'FontSize', 11)
-legend('performed trajectory','reference','Location','southeast','Interpreter','latex', 'FontSize', 11)
-title('roll', 'FontSize', 11)
+ylabel('roll angle (rad)', 'FontSize', 11)
+% legend('performed','reference','Location','southeast','Interpreter','latex', 'FontSize', 11)
+% title('roll', 'FontSize', 11)
 xlim([0, time(touchdownMoment)+0.1])
 ylim([min(min(yreftot(:,4)), min(y(4,:))), max(max(yreftot(:,4)), max(y(4,:)))])
 
@@ -90,9 +90,9 @@ plot(time,yreftot(:,5),'LineWidth', 2)
 plot([time(touchdownMoment), time(touchdownMoment)], [min(min(yreftot(:,5)), min(y(5,:))), max(max(yreftot(:,5)), max(y(5,:)))]);
 grid on
 xlabel('time (s)', 'FontSize', 11)
-ylabel('angle (rad)', 'FontSize', 11)
-% legend('response','reference','Location','southeast','Interpreter','latex', 'FontSize', 11)
-title('pitch', 'FontSize', 11)
+ylabel('pitch angle (rad)', 'FontSize', 11)
+% legend('performed','reference','Location','southeast','Interpreter','latex', 'FontSize', 11)
+% title('pitch', 'FontSize', 11)
 xlim([0, time(touchdownMoment)+0.1])
 ylim([min(min(yreftot(:,5)), min(y(5,:))), max(max(yreftot(:,5)), max(y(5,:)))])
 
@@ -103,9 +103,9 @@ plot(time,yreftot(:,6),'LineWidth', 2)
 plot([time(touchdownMoment), time(touchdownMoment)], [min(min(yreftot(:,6)), min(y(6,:))), max(max(yreftot(:,6)), max(y(6,:)))]);
 grid on
 xlabel('time (s)', 'FontSize', 11)
-ylabel('angle (rad)', 'FontSize', 11)
-% legend('response','reference','Location','southeast','Interpreter','latex', 'FontSize', 11)
-title('yaw', 'FontSize', 11)
+ylabel('yaw angle (rad)', 'FontSize', 11)
+legend('performed','reference','Location','southeast','Interpreter','latex', 'FontSize', 11)
+% title('yaw', 'FontSize', 11)
 xlim([0, time(touchdownMoment)+0.1])
 ylim([min(min(yreftot(:,6)), min(y(6,:))), max(max(yreftot(:,6)), max(y(6,:)))])
 
@@ -160,11 +160,11 @@ grid on
 xlabel('time (s)')
 ylabel('velocity (m/s)')
 % legend('response','reference','Location','southeast','Interpreter','latex')
-title("Quadrotor's linear velocity in x-axis",'FontSize', 11)
+title("Quadrotor's linear velocity in z-axis",'FontSize', 11)
 xlim([0, time(touchdownMoment)+0.1])
 ylim([min(min(yreftot(:,9)), min(y(9,:))), max(max(yreftot(:,9)), max(y(9,:)))])
 
-sgtitle('Horizontal velocities','FontSize', 15) 
+% sgtitle('Horizontal velocities','FontSize', 15) 
 
 %% ----------------------
 figure('Name','Vertical velocity')

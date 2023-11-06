@@ -1,6 +1,6 @@
-function [Duration, ref] = WamvReferenceTrajectory(N, Ts, begin)
-    load('usv_states.mat');
-    
+function [Duration, ref] = WamvReferenceTrajectory(N, Ts, begin, data_file_name)
+    load(data_file_name);
+
     
     % [x, y, z]
     ref(:,1) = usv_states(begin:end,1);
