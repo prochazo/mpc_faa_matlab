@@ -1,4 +1,4 @@
-% %% initial file for flight control system semestral task
+% %% run script for mpc_faa landing method
 % % @author: Ondřej Procházka
 
 % clean workspace
@@ -57,7 +57,9 @@ end
 
 use_wamv_trajectory = true;
 if use_wamv_trajectory == true
-    [Duration, ref] = WamvReferenceTrajectory(N,0);
+    data_file_name = 'usv_states.mat';
+    TrajStart = 183; %245 defines begin of the referenced trajecotry which is loaded from real simulation dataset
+    [Duration, ref] = WamvReferenceTrajectory(N, Ts, TrajStart, data_file_name);
     t = 0:Ts:Duration; % time vector
 else
     Duration = 20; % Final time
@@ -67,26 +69,4 @@ end
 
 simulation;
 
-figure(1)
-x1 = subplot(211);
-stairs(t, ref(1:numel(t),1:3), 'k--');
-hold on
-% stairs(t, ref(1:numel(t),4:6), 'k:');
-stairs(t, y(1:3,:)');
-hold off
-title('Outputs')
-xlabel('Time (s)')
-ylabel('States')
-grid on
-axis tight
-legend('x','y','z', 'x','y','z')
-
-x2 = subplot(212);
-stairs(t, u');
-title('Controls')
-xlabel('Time (s)')
-ylabel('$\omega (rad/s)^2$')
-grid on
-legend(' \omega_1^2 ',' \omega_2^2 ',' \omega_3^2 ',' \omega_4^2 ')
-
-linkaxes([x1 x2],'x');
+plotResult;

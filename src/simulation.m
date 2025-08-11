@@ -2,9 +2,9 @@
 N_states = length(A);
 
 x0 = zeros(n,1); 
-x0(1) = ref(1,1);
-x0(2) = ref(1,2);
-x0(3) = ref(1,3);
+% x0(1) = ref(1,1);
+% x0(2) = ref(1,2);
+% x0(3) = ref(1,3);
 
 u0 = zeros(m,1); 
 xtilde0 = [x0; u0];
@@ -23,10 +23,14 @@ else
     mosqp.setup(H/2+H'/2, [x(1:N_states,i)' uprev' vec(ref(1:N, 1:N_states)')']*F, G, -inf*ones(size(W)), W+S*[x(:,i); uprev], settings);
 end
 
+simEnd = inf;
+touchdownMoment = 0;
 for i = 1:(numel(t)-1)
     tic;
     % Reference signal over the current prediction window
-    rk = ref(i:i+N-1, 1:N_states)';
+    rk_raw = ref(i:i+N-1, 1:N_states)';
+    
+    rk = preprocessReference(rk_raw, x(:,i), Ts);
     
     if ispc
         % or by qpOASES ...
@@ -54,5 +58,15 @@ for i = 1:(numel(t)-1)
         
     uprev = u(:,i);
     
+    if touchdownMoment == 0 && checkTouchdown(x(:,i+1), rk_raw) == true
+        touchdownMoment = i+1;
+    end
+    if touchdownMoment ~= 0 && abs(touchdownMoment - i) > 3/Ts % let simulation run for 3 sec after touchdown
+        simEnd = i;
+        break
+    end
     time_c(i) = toc;
+    
 end
+
+
