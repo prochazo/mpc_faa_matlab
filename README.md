@@ -1,8 +1,12 @@
 MPC_FAA MATLAB
 ==========
+This repository contains MATLAB code used for preliminary research on landing a UAV on a USV, which resulted in a publication in the Ocean Engineering journal. 
+The final version of the landing algorithm was implemented in C++, and it is not part of this repository, as it cannot be used independently without other systems. 
+It is expected to open-source this version of code as well in the future...
 
 This project includes a MATLAB live script with an explanation of how to model a UAV in 6DOF. 
-This model is then discretized and linearized. Such a model is used as an internal model for Model Predictive Control in the form of reference tracking. 
+This model is then discretized and linearized. 
+Such a model is used as an internal model for Model Predictive Control in the form of reference tracking. 
 
 ## Citing
 If you use this code in an academic context, please cite the following publication:
@@ -19,9 +23,15 @@ Ondřej Procházka, Filip Novák, Tomáš Báča, Parakh M Gupta, Robert Pěnič
   year={2024},
   publisher={Elsevier}
 }
+```
 
-Matlab toolboxes
----------------
+## License
+GPL-3.0 License. Copyright (C) 2024 K. Ondřej Procházka, Filip Novák, Tomáš Báča, Parakh M Gupta, Robert Pěnička, Martin Saska (Faculty of Electrical Engineering, Czech Technical University in Prague).
+
+This is a research code, expect that it changes often and any fitness for a particular purpose is disclaimed.
+
+## Matlab toolboxes
+
 - Control System Toolbox                                Version 10.10       (R2021a)
 - DSP System Toolbox                                    Version 9.12        (R2021a)
 - Model Predictive Control Toolbox                      Version 7.1         (R2021a)
@@ -31,8 +41,8 @@ Matlab toolboxes
 - Symbolic Math Toolbox                                 Version 8.7         (R2021a)
 
 
-Quadratic solvers
-----------------
+## Quadratic solvers
+
 
 ### OSQP
 To install matlab version of the OSQP run following commands into the MATLAB command window
@@ -41,8 +51,6 @@ To install matlab version of the OSQP run following commands into the MATLAB com
 cd osqp-matlab
 make_osqp
 ```
-
 ### qpOASES
-
 
 ### MATLAB's quadprog
