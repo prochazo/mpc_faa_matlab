@@ -1,8 +1,24 @@
 MPC_FAA MATLAB
 ==========
 
-This project includes MATLAB live scritp with the explanantion how to model UAV in 6DOF. This model is then discretized and linearized. Such a model is used as an internal model for Model Predictive Control in a form of reference tracking. 
+This project includes a MATLAB live script with an explanation of how to model a UAV in 6DOF. 
+This model is then discretized and linearized. Such a model is used as an internal model for Model Predictive Control in the form of reference tracking. 
 
+## Citing
+If you use this code in an academic context, please cite the following publication:
+
+Ondřej Procházka, Filip Novák, Tomáš Báča, Parakh M Gupta, Robert Pěnička, Martin Saska, "Model predictive control-based trajectory generation for agile landing of unmanned aerial vehicle on a moving boat," Ocean Engineering 313:119164, 2024. ([PDF](https://www.sciencedirect.com/science/article/pii/S0029801824025022))
+
+```
+@article{prochazka2024model,
+  title={Model predictive control-based trajectory generation for agile landing of unmanned aerial vehicle on a moving boat},
+  author={Proch{\'a}zka, Ond{\v{r}}ej and Nov{\'a}k, Filip and B{\'a}{\v{c}}a, Tom{\'a}{\v{s}} and Gupta, Parakh M and P{\v{e}}ni{\v{c}}ka, Robert and Saska, Martin},
+  journal={Ocean Engineering},
+  volume={313},
+  pages={119164},
+  year={2024},
+  publisher={Elsevier}
+}
 
 Matlab toolboxes
 ---------------
